@@ -1,5 +1,5 @@
 import { Inter } from "@next/font/google";
-import { Product, Footer, HeroBanner } from "@/components";
+import { Product, HeroBanner, FooterBanner } from "@/components";
 import { client } from "@/lib/client";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +17,7 @@ export default function Home({ products, bannerData }) {
 					<Product key={product._id} product={product} />
 				))}
 			</div>
-			<Footer />
+			<FooterBanner footerBanner={bannerData[0]} />
 		</>
 	);
 }
@@ -28,6 +28,9 @@ export const getServerSideProps = async () => {
 
 	const bannerQuery = '*[_type == "banner"]';
 	const bannerData = await client.fetch(bannerQuery);
+
+	if (!(bannerData || products)) return { props: null, notFound: true };
+	// console.log(bannerData, products);
 
 	return { props: { products, bannerData } };
 };
