@@ -1,13 +1,15 @@
 import { Layout } from "@/components";
 import "@/styles/globals.css";
-import { stateContext } from "@/context/stateContext";
+import { StateContext } from "@/context/StateContext";
+import { Toaster } from "react-hot-toast";
 
 export default function App({ Component, pageProps }) {
 	return (
-		<stateContext>
+		<StateContext>
 			<Layout>
+				<Toaster />
 				<Component {...pageProps} />
 			</Layout>
-		</stateContext>
+		</StateContext>
 	);
 }
